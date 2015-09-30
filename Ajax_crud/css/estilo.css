@@ -103,6 +103,7 @@ html, body {
                     background: none;
                     border: 0;
                     color: white;
+                    cursor: pointer;
                 }
 
                     .wrapper .manageCurso table thead th .btn_refresh:focus {
@@ -123,4 +124,8 @@ html, body {
             .wrapper .manageCurso table tbody td {
                 padding: 10px;
                 font-size: 110%;
+            }
+
+            .wrapper .manageCurso table tbody tr td i {
+                cursor:pointer;
             }

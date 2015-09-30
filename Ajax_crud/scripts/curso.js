@@ -14,6 +14,8 @@ function guardarDatos() {
         if (ajax.readyState == 4) {
             if (ajax.status >= 200 && ajax.status < 300) {
                 obtenerDatos();
+                document.getElementById("add_nombre").value = "";
+                document.getElementById("add_duracion").value = "";
             } else {
                 alert();
             }
@@ -45,10 +47,10 @@ function obtenerDatos() {
                 var data = JSON.parse(ajax.responseText);
                 var salida = "<table>";
                 for (var i = 0; i < data.length; i++) {
-                    salida += "<tr>";
+                    salida += "<tr data-id='" + data[i].id + "'>";
                     salida += "<td>" + data[i].nombre + "</td>";
                     salida += "<td>" + data[i].duracion + "h</td>";
-                    salida += "<td>" + "<i class='material-icons'>mode_edit</i> <i class='material-icons'>delete</i> " + "</td>";
+                    salida += "<td>" + "<i id='btnEdit' class='material-icons'>mode_edit</i> <i id='btnRemove' onclick='borrarDatos(this)' class='material-icons'>delete</i> " + "</td>";
                     salida += "</tr>";
                 }
 
@@ -68,10 +70,46 @@ function obtenerDatos() {
     ajax.send(null);
 }
 
+function borrarDatos(obj) {
+    //obtenemos la fila del objeto, accediendo al padre del padre del icono de borrado
+    var fila = obj.parentNode.parentNode;
 
-obtenerDatos();
+    //recuperamos el atributo personalizado de esta fila para obtener el id del objeto
+    var obj = {
+        id: fila.getAttribute('data-id')
+    };
 
-document.getElementById("btnAdd").onclick = guardarDatos;
 
-document.getElementById("btnRefresh").onclick = obtenerDatos;
+    var ajax = new XMLHttpRequest();
+    //se concatena la url base con el id del objeto para poder ser borrado
+    ajax.open("delete", url + "/" + obj.id);
+    ajax.setRequestHeader("Content-Type", "application/json");
+    ajax.onreadystatechange = function () {
+        if (ajax.readyState == 4) {
+            if (ajax.status >= 200 && ajax.status < 300) {
+                //se borra la fila (accediendo al padre para borrar el hijo)
+                fila.parentNode.removeChild(fila);
+            } else {
+                alert("Fallo gordo");
+            }
+        }
+    }
+    //se transforma a un JSON en texto
+    //enviar el ID del objeto por aqui es opcional
+    var data = JSON.stringify(obj);
+    ajax.send(data);
+
+}
+
+
+(function () {
+    obtenerDatos();
+
+    document.getElementById("btnAdd").onclick = guardarDatos;
+
+    document.getElementById("btnRefresh").onclick = obtenerDatos;
+
+})();
+
+
 
