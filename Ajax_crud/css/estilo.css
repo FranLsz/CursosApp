@@ -1,11 +1,20 @@
-﻿*, body {
+﻿* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
     padding: 0;
     margin: 0;
     width: 100%;
+    font-family: 'Raleway', sans-serif;
+    background-color: rgb(51,51,51);
+    color: white;
 }
 
 .wrapper {
     width: 100%;
+    height: 100%;
     padding: 0;
     margin: 0;
 }
@@ -17,14 +26,101 @@
     }
 
         .wrapper .addCurso .addBox {
-
-            width:50%;
-            display:inline-block;
-            margin:0 auto;
+            width: 50%;
+            display: block;
+            margin: 0 auto;
         }
+
+            .wrapper .addCurso .addBox .add_title {
+                font-size: 500%;
+                width: 100%;
+            }
+
+            .wrapper .addCurso .addBox .inputControl {
+                display: block;
+                margin-top: 30px;
+                width: 100%;
+            }
+
+                .wrapper .addCurso .addBox .inputControl label {
+                    font-size: 350%;
+                    width: 100%;
+                    display: block;
+                    padding-left: 5px;
+                }
+
+                .wrapper .addCurso .addBox .inputControl input[type=text] {
+                    width: 75%;
+                    border: 0;
+                    height: 30px;
+                    font-size: 200%;
+                    padding: 5px;
+                    color: rgb(51,51,51);
+                }
+
+            .wrapper .addCurso .addBox button {
+                border: 0;
+                height: 50px;
+                font-size: 195%;
+                padding: 10px;
+                width: 25%;
+                margin-top: 30px;
+                background-color: white;
+                color: rgb(51,51,51);
+            }
+
+                .wrapper .addCurso .addBox button:hover {
+                    background-color: grey;
+                    color: white;
+                }
+
+
+    .wrapper .manageCurso .manage_title {
+        font-size: 500%;
+        width: 100%;
+    }
 
     .wrapper .manageCurso {
         width: 50%;
         display: inline-block;
         float: left;
     }
+
+        .wrapper .manageCurso table {
+            border-collapse: collapse;
+            margin-top: 30px;
+            width: 80%;
+        }
+
+            .wrapper .manageCurso table thead th {
+                font-size: 250%;
+                font-weight: normal !important;
+                text-align: left;
+                padding-bottom: 20px;
+            }
+
+                .wrapper .manageCurso table thead th .btn_refresh {
+                    background: none;
+                    border: 0;
+                    color: white;
+                }
+
+                    .wrapper .manageCurso table thead th .btn_refresh:focus {
+                        outline: none;
+                    }
+
+
+                    .wrapper .manageCurso table thead th .btn_refresh i {
+                        font-size: 50px;
+                    }
+
+
+            .wrapper .manageCurso table tbody tr:nth-child(odd) {
+                background: none repeat scroll 0 0 white;
+                color: rgb(51,51,51);
+            }
+
+            .wrapper .manageCurso table tbody td {
+                padding: 10px;
+                font-size: 110%;
+            }

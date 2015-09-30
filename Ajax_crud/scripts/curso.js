@@ -11,7 +11,6 @@ function guardarDatos() {
     ajax.open("post", url);
     ajax.setRequestHeader("Content-Type", "application/json");
     ajax.onreadystatechange = function () {
-        alert();
         if (ajax.readyState == 4) {
             if (ajax.status >= 200 && ajax.status < 300) {
                 obtenerDatos();
@@ -48,14 +47,13 @@ function obtenerDatos() {
                 for (var i = 0; i < data.length; i++) {
                     salida += "<tr>";
                     salida += "<td>" + data[i].nombre + "</td>";
-                    salida += "<td>" + data[i].duracion + "</td>";
+                    salida += "<td>" + data[i].duracion + "h</td>";
+                    salida += "<td>" + "<i class='material-icons'>mode_edit</i> <i class='material-icons'>delete</i> " + "</td>";
                     salida += "</tr>";
-
-
                 }
 
                 salida += "</table>";
-                document.getElementById("cursos").innerHTML = salida;
+                document.getElementById("data_location").innerHTML = salida;
 
             } else {
                 alert("Error en la peticion");
