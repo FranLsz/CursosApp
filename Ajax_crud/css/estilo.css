@@ -1,0 +1,30 @@
+﻿*, body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.wrapper {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+    .wrapper .addCurso {
+        width: 50%;
+        display: inline-block;
+        float: left;
+    }
+
+        .wrapper .addCurso .addBox {
+
+            width:50%;
+            display:inline-block;
+            margin:0 auto;
+        }
+
+    .wrapper .manageCurso {
+        width: 50%;
+        display: inline-block;
+        float: left;
+    }
