@@ -3,7 +3,7 @@
 function guardarDatos() {
     var obj = {
         nombre: document.getElementById("add_nombre").value,
-        duracion: document.getElementById("add_duracion").value,
+        duracion: document.getElementById("add_duracion").value
     };
 
 
@@ -11,7 +11,7 @@ function guardarDatos() {
     ajax.open("post", url);
     ajax.setRequestHeader("Content-Type", "application/json");
     ajax.onreadystatechange = function () {
-        if (ajax.readyState == 4) {
+        if (ajax.readyState === 4) {
             if (ajax.status >= 200 && ajax.status < 300) {
                 obtenerDatos();
                 document.getElementById("add_nombre").value = "";
@@ -39,7 +39,7 @@ function obtenerDatos() {
     //cuando cambie el estado ejecuta la funcion (res = respuesta)
     ajax.onreadystatechange = function () {
 
-        if (ajax.readyState == 4) {
+        if (ajax.readyState === 4) {
 
             // entre 200 y 300 respuesta  de exito
             if (ajax.status >= 200 && ajax.status < 300) {
@@ -70,9 +70,9 @@ function obtenerDatos() {
     ajax.send(null);
 }
 
-function borrarDatos(obj) {
+function borrarDatos(o) {
     //obtenemos la fila del objeto, accediendo al padre del padre del icono de borrado
-    var fila = obj.parentNode.parentNode;
+    var fila = o.parentNode.parentNode;
 
     //recuperamos el atributo personalizado de esta fila para obtener el id del objeto
     var obj = {
@@ -85,7 +85,7 @@ function borrarDatos(obj) {
     ajax.open("delete", url + "/" + obj.id);
     ajax.setRequestHeader("Content-Type", "application/json");
     ajax.onreadystatechange = function () {
-        if (ajax.readyState == 4) {
+        if (ajax.readyState === 4) {
             if (ajax.status >= 200 && ajax.status < 300) {
                 //se borra la fila (accediendo al padre para borrar el hijo)
                 fila.parentNode.removeChild(fila);
