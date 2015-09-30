@@ -74,3 +74,6 @@ function obtenerDatos() {
 obtenerDatos();
 
 document.getElementById("btnAdd").onclick = guardarDatos;
+
+document.getElementById("btnRefresh").onclick = obtenerDatos;
+
