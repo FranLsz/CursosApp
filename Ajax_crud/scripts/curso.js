@@ -128,13 +128,18 @@ function editarDatos() {
 
     var ajax = new XMLHttpRequest();
     //se concatena la url base con el id del objeto para poder ser borrado
-    ajax.open("patch", url + obj.id);
+    ajax.open("PATCH", url + obj.id);
     ajax.setRequestHeader("Content-Type", "application/json");
     ajax.onreadystatechange = function () {
         if (ajax.readyState === 4) {
             if (ajax.status >= 200 && ajax.status < 300) {
-                //se borra la fila (accediendo al padre para borrar el hijo)
+                document.getElementById("add_nombre").value = "";
+                document.getElementById("add_duracion").value = "";
+                document.getElementById("add_title").textContent = "Nuevo curso";
+                document.getElementById("btnAdd").textContent = "Crear"
+                btnAdd.onclick = guardarDatos;
                 obtenerDatos();
+
             } else {
                 alert("Fallo gordo");
             }
@@ -150,14 +155,13 @@ function editarDatos() {
 
 
 
-(function () {
-    obtenerDatos();
+obtenerDatos();
 
-    document.getElementById("btnAdd").onclick = guardarDatos;
+document.getElementById("btnAdd").onclick = guardarDatos;
 
-    document.getElementById("btnRefresh").onclick = obtenerDatos;
+document.getElementById("btnRefresh").onclick = obtenerDatos;
 
-})();
+
 
 
 
