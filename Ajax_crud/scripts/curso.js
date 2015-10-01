@@ -136,8 +136,8 @@ function editarDatos() {
                 document.getElementById("add_nombre").value = "";
                 document.getElementById("add_duracion").value = "";
                 document.getElementById("add_title").textContent = "Nuevo curso";
-                document.getElementById("btnAdd").textContent = "Crear"
-                btnAdd.onclick = guardarDatos;
+                document.getElementById("btnAdd").textContent = "Crear";
+                window.btnAdd.onclick = guardarDatos;
                 obtenerDatos();
 
             } else {
