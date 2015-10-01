@@ -1,4 +1,31 @@
 ﻿var url = "https://alumnoscurso.azure-mobile.net/Tables/Curso/";
+
+function doAjax(tipo, datos, doneFn) {
+
+
+    var ajax = new XMLHttpRequest();
+    ajax.open("post", url);
+    ajax.setRequestHeader("Content-Type", "application/json");
+    ajax.onreadystatechange = function () {
+        if (ajax.readyState === 4) {
+            if (ajax.status >= 200 && ajax.status < 300) {
+                doneFn();
+            } else {
+                alert("Fallo al realizar la operación");
+            }
+        }
+    };
+    if (datos == undefined) {
+        ajax.send(null);
+    } else {
+        var datosStr = JSON.stringify(datos);
+        ajax.send(datosStr);
+    }
+
+}
+
+
+
 var fila;
 function guardarDatos() {
     var obj = {
@@ -20,8 +47,7 @@ function guardarDatos() {
                 alert();
             }
         }
-    }
-    //se transforma a un JSON en texto
+    }; //se transforma a un JSON en texto
     var data = JSON.stringify(obj);
     ajax.send(data);
 
@@ -93,8 +119,7 @@ function borrarDatos(o) {
                 alert("Fallo gordo");
             }
         }
-    }
-    //se transforma a un JSON en texto
+    }; //se transforma a un JSON en texto
     //enviar el ID del objeto por aqui es opcional
     var data = JSON.stringify(obj);
     ajax.send(data);
@@ -111,7 +136,7 @@ function showEditPanel(o) {
     document.getElementById("add_nombre").value = celdas[0].textContent;
     document.getElementById("add_duracion").value = celdas[1].textContent.substring(celdas[1].textContent.length - 1, -2);
     titulo.textContent = "Editar curso";
-    btnAdd.textContent = "Editar"
+    btnAdd.textContent = "Editar";
     btnAdd.onclick = editarDatos;
 }
 function editarDatos() {
@@ -120,7 +145,7 @@ function editarDatos() {
 
     //recuperamos el atributo personalizado de esta fila para obtener el id del objeto
     var obj = {
-        id: fila.getAttribute('data-id'),
+        id: fila.getAttribute("data-id"),
         nombre: document.getElementById("add_nombre").value,
         duracion: document.getElementById("add_duracion").value
     };
@@ -144,8 +169,7 @@ function editarDatos() {
                 alert("Fallo gordo");
             }
         }
-    }
-    //se transforma a un JSON en texto
+    }; //se transforma a un JSON en texto
     //enviar el ID del objeto por aqui es opcional
     var data = JSON.stringify(obj);
     ajax.send(data);
