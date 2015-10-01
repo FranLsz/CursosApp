@@ -1,5 +1,5 @@
 ﻿var url = "https://alumnoscurso.azure-mobile.net/Tables/Curso/";
-
+var fila;
 function guardarDatos() {
     var obj = {
         nombre: document.getElementById("add_nombre").value,
@@ -50,7 +50,7 @@ function obtenerDatos() {
                     salida += "<tr data-id='" + data[i].id + "'>";
                     salida += "<td>" + data[i].nombre + "</td>";
                     salida += "<td>" + data[i].duracion + "h</td>";
-                    salida += "<td>" + "<i id='btnEdit' class='material-icons'>mode_edit</i> <i id='btnRemove' onclick='borrarDatos(this)' class='material-icons'>delete</i> " + "</td>";
+                    salida += "<td>" + "<i id='btnEdit' onclick='showEditPanel(this)' class='material-icons'>mode_edit</i> <i id='btnRemove' onclick='borrarDatos(this)' class='material-icons'>delete</i> " + "</td>";
                     salida += "</tr>";
                 }
 
@@ -72,7 +72,7 @@ function obtenerDatos() {
 
 function borrarDatos(o) {
     //obtenemos la fila del objeto, accediendo al padre del padre del icono de borrado
-    var fila = o.parentNode.parentNode;
+    fila = o.parentNode.parentNode;
 
     //recuperamos el atributo personalizado de esta fila para obtener el id del objeto
     var obj = {
@@ -100,6 +100,54 @@ function borrarDatos(o) {
     ajax.send(data);
 
 }
+
+function showEditPanel(o) {
+    var titulo = document.getElementById("add_title");
+    var btnAdd = document.getElementById("btnAdd");
+
+    fila = o.parentNode.parentNode;
+    var celdas = fila.getElementsByTagName("TD");
+    document.getElementById("edit_id").value = fila.getAttribute('data-id');
+    document.getElementById("add_nombre").value = celdas[0].textContent;
+    document.getElementById("add_duracion").value = celdas[1].textContent.substring(celdas[1].textContent.length - 1, -2);
+    titulo.textContent = "Editar curso";
+    btnAdd.textContent = "Editar"
+    btnAdd.onclick = editarDatos;
+}
+function editarDatos() {
+    //obtenemos la fila del objeto, accediendo al padre del padre del icono de borrado
+    //fila = o.parentNode.parentNode;
+
+    //recuperamos el atributo personalizado de esta fila para obtener el id del objeto
+    var obj = {
+        id: fila.getAttribute('data-id'),
+        nombre: document.getElementById("add_nombre").value,
+        duracion: document.getElementById("add_duracion").value
+    };
+
+
+    var ajax = new XMLHttpRequest();
+    //se concatena la url base con el id del objeto para poder ser borrado
+    ajax.open("patch", url + obj.id);
+    ajax.setRequestHeader("Content-Type", "application/json");
+    ajax.onreadystatechange = function () {
+        if (ajax.readyState === 4) {
+            if (ajax.status >= 200 && ajax.status < 300) {
+                //se borra la fila (accediendo al padre para borrar el hijo)
+                obtenerDatos();
+            } else {
+                alert("Fallo gordo");
+            }
+        }
+    }
+    //se transforma a un JSON en texto
+    //enviar el ID del objeto por aqui es opcional
+    var data = JSON.stringify(obj);
+    ajax.send(data);
+
+}
+
+
 
 
 (function () {
